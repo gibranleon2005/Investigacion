@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubika UABC | Sistema de Objetos Perdidos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <header class="top">
+            <h1>Ubika UABC</h1>
+            <p style="color: var(--ink-soft); margin-top: 0.5rem;">Sistema de objetos perdidos y
+                encontrados</p>
+            <div class="meta">
+                <div><strong>Proyecto:</strong> Ubika UABC</div>
+                <div><strong>Institución:</strong> Universidad Autónoma de Baja California</div>
+                <div><strong>Facultad:</strong> Ingeniería, Arquitectura y Diseño (FIAD)</div>
+                <div><strong>Asignatura:</strong> Tecnologías Emergentes para el Desarrollo de Soluciones</div>
+            </div>
+        </header>
+
+        <nav class="mainnav" aria-label="Navegación entre interfaces">
+            <a href="#interfaz1">01 · Experto</a>
+            <a href="#interfaz2">02 · Extremos</a>
+            <a href="#interfaz3">03 · Iceberg</a>
+            <a href="#interfaz4">04 · Empathy</a>
+            <a href="#interfaz5">05 · Roper</a>
+            <a href="#interfaz6" class="obligatoria">06 · Mapeo ★</a>
+            <a href="#implementacion">Sistema</a>
+            <a href="#reflexion">Reflexión</a>
+        </nav>
+
+        <div id="alertContainer"></div>
+
+        <section class="sheet">
+            <div class="eyebrow">Propósito y alcance</div>
+            <h2>Introducción</h2>
+            <p>
+                Este documento detalla el desarrollo de Ubika UABC, una plataforma centralizada para la gestión de
+                objetos
+                perdidos y encontrados en la Facultad de Ingeniería, Arquitectura y Diseño. La solución se fundamenta en
+                investigación de usuarios de campo, necesidades reales identificadas mediante entrevista a expertos,
+                análisis
+                de usuarios extremos y observación directa (Iceberg de necesidades).
+            </p>
+            <p>
+                La interfaz integra funcionalidades de CRUD (crear, leer, actualizar, eliminar), validación de campos,
+                persistencia en localStorage y exportación de datos a JSON y CSV, permitiendo tanto uso directo como
+                análisis
+                posterior de la información recopilada.
+            </p>
+        </section>
+
+        <!-- SECCIÓN 2: INTERFAZ 1 - ENTREVISTA AL EXPERTO -->
+        <section class="sheet" id="interfaz1">
+            <div class="field-card-num">Interfaz 01 / 06</div>
+            <h2>Entrevista a Expertos</h2>
+            <p style="color: var(--ink-soft);">
+                Registra el perfil de cada experto del dominio entrevistado, su guion de pregunta → respuesta
+                (marcando las citas textuales clave) y el requerimiento que se deriva de la entrevista. Este es
+                un instrumento vivo: agrega aquí cada experto real que entrevistes.
+            </p>
+
+            <h3 id="expertFormTitle">Agregar experto</h3>
+            <div class="card">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expAlias">Alias / nombre</label>
+                        <input type="text" id="expAlias" placeholder="Ej. Encargado de biblioteca">
+                    </div>
+                    <div class="form-group">
+                        <label for="expRol">Rol</label>
+                        <input type="text" id="expRol" placeholder="Ej. Personal de atención">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expDominio">Dominio</label>
+                        <input type="text" id="expDominio" placeholder="Ej. Gestión de objetos olvidados">
+                    </div>
+                    <div class="form-group">
+                        <label for="expExperiencia">Años de experiencia</label>
+                        <input type="text" id="expExperiencia" placeholder="Ej. 4 años">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expOrganizacion">Organización</label>
+                        <input type="text" id="expOrganizacion" placeholder="Ej. Biblioteca FIAD">
+                    </div>
+                    <div class="form-group">
+                        <label for="expFecha">Fecha</label>
+                        <input type="date" id="expFecha">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="expMedio">Medio</label>
+                    <select id="expMedio">
+                        <option value="presencial">Presencial</option>
+                        <option value="remoto">Remoto</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="expGuion">Guion (una pregunta → respuesta por línea, formato "P: ... | R: ...".
+                        Termina la línea con ** para marcarla como cita textual clave)</label>
+                    <textarea id="expGuion" rows="4"
+                        placeholder="P: ¿Cómo es el proceso actual? | R: Agarramos el objeto y lo metemos en una caja...&#10;P: ¿Qué te preocupa de un sistema digital? | R: Que entreguemos el objeto a alguien que no es el dueño **"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="expComplejidad">Mapa de complejidad técnica (conceptos clave, jerga, dependencias,
+                        actores del ecosistema)</label>
+                    <textarea id="expComplejidad" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="expRestricciones">Restricciones y riesgos señalados</label>
+                    <textarea id="expRestricciones" rows="2"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expReferencias">Referencias / fuentes recomendadas</label>
+                        <input type="text" id="expReferencias">
+                    </div>
+                    <div class="form-group">
+                        <label for="expRequerimiento">Requerimiento derivado</label>
+                        <input type="text" id="expRequerimiento" placeholder="¿Qué debe hacer el sistema por esto?">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="expNotas">Notas y siguientes pasos</label>
+                    <textarea id="expNotas" rows="2"></textarea>
+                </div>
+                <div class="form-row">
+                    <button class="btn-primary" id="expSubmitBtn" onclick="app.saveExpert()">Agregar experto</button>
+                    <button class="btn-secondary" onclick="app.cancelExpertEdit()">Cancelar edición</button>
+                </div>
+            </div>
+
+            <h3>Expertos registrados</h3>
+            <div id="expertsList"></div>
+
+            <div class="export-row">
+                <button class="btn-primary" onclick="app.exportEntity('experts')">Exportar JSON</button>
+                <button class="btn-primary" onclick="app.exportEntityCSV('experts')">Exportar CSV</button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: INTERFAZ 2 - USUARIOS EXTREMOS -->
+        <section class="sheet" id="interfaz2">
+            <div class="field-card-num">Interfaz 02 / 06</div>
+            <h2>Usuarios Extremos</h2>
+            <p style="color: var(--ink-soft);">
+                Súper-expertos e inexpertos frente al usuario mainstream: sus fricciones amplificadas suelen
+                revelar necesidades que también sirven al usuario promedio.
+            </p>
+
+            <h3>Agregar usuario extremo</h3>
+            <div class="card">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="extClasificacion">Clasificación</label>
+                        <select id="extClasificacion">
+                            <option value="inexperto">Inexperto</option>
+                            <option value="super-experto">Súper-experto</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="extAlias">Alias</label>
+                        <input type="text" id="extAlias" placeholder="Ej. Iván M.">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="extContexto">Contexto y frecuencia de uso</label>
+                    <textarea id="extContexto" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="extHabilidad">Nivel de habilidad (1-10)</label>
+                    <input type="text" id="extHabilidad" placeholder="Ej. 2">
+                </div>
+                <div class="form-group">
+                    <label for="extTareas">Tareas observadas</label>
+                    <textarea id="extTareas" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="extWorkarounds">Workarounds / adaptaciones manuales detectadas</label>
+                    <textarea id="extWorkarounds" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="extFricciones">Errores o fricciones que este usuario amplifica (una por línea, formato
+                        "Fricción → Requisito UX → Implementación")</label>
+                    <textarea id="extFricciones" rows="3"
+                        placeholder="Ausencia de puntos de entrada visibles → 3 botones grandes sin opciones confusas → Botones: Reportar encontrado / Reportar perdido / Importar"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="extNecesidad">Necesidad extrema detectada</label>
+                    <textarea id="extNecesidad" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="extHipotesis">Hipótesis de cómo se generaliza al usuario promedio</label>
+                    <textarea id="extHipotesis" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="extEvidencia">Evidencia (enlaces, fotos, marcas de tiempo)</label>
+                    <input type="text" id="extEvidencia">
+                </div>
+                <div class="form-row">
+                    <button class="btn-primary" id="extSubmitBtn" onclick="app.saveExtreme()">Agregar usuario
+                        extremo</button>
+                    <button class="btn-secondary" onclick="app.cancelExtremeEdit()">Cancelar edición</button>
+                </div>
+            </div>
+
+            <h3>Usuarios extremos registrados</h3>
+            <div id="extremeList"></div>
+
+            <div class="export-row">
+                <button class="btn-primary" onclick="app.exportEntity('extremeUsers')">Exportar JSON</button>
+                <button class="btn-primary" onclick="app.exportEntityCSV('extremeUsers')">Exportar CSV</button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: INTERFAZ 3 - OBSERVACIÓN DIRECTA (ICEBERG) -->
+        <section class="sheet" id="interfaz3">
+            <div class="field-card-num">Interfaz 03 / 06</div>
+            <h2>Observación Directa / Needfinding — "El Iceberg"</h2>
+            <p style="color: var(--ink-soft);">
+                Cada observación separa el dato crudo (lo que se ve) de la interpretación (lo que se infiere), y
+                registra las necesidades en dos capas: obvias (superficie) y ocultas (profundidad).
+            </p>
+
+            <h3>Agregar observación</h3>
+            <div class="card">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="obsLugar">Lugar</label>
+                        <input type="text" id="obsLugar">
+                    </div>
+                    <div class="form-group">
+                        <label for="obsFecha">Fecha</label>
+                        <input type="date" id="obsFecha">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="obsDuracion">Duración</label>
+                        <input type="text" id="obsDuracion" placeholder="Ej. 90 minutos">
+                    </div>
+                    <div class="form-group">
+                        <label for="obsActividad">Actividad observada</label>
+                        <input type="text" id="obsActividad">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="obsObvias">Necesidades obvias / feature requests (una por línea)</label>
+                    <textarea id="obsObvias" rows="2"
+                        placeholder="Quiero una app donde pueda publicar la foto de lo que encontré"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="obsOcultas">Necesidades ocultas / emociones subyacentes (una por línea)</label>
+                    <textarea id="obsOcultas" rows="3"
+                        placeholder="Miedo latente a ser juzgado por descuido académico"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="obsDatoCrudo">Dato crudo observado (comportamiento)</label>
+                    <textarea id="obsDatoCrudo" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="obsInterpretacion">Interpretación / inferencia</label>
+                    <textarea id="obsInterpretacion" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="obsPotencial">Potencial de innovación</label>
+                    <select id="obsPotencial">
+                        <option value="alto">Alto</option>
+                        <option value="bajo">Bajo</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <button class="btn-primary" id="obsSubmitBtn" onclick="app.saveObservation()">Agregar
+                        observación</button>
+                    <button class="btn-secondary" onclick="app.cancelObservationEdit()">Cancelar edición</button>
+                </div>
+            </div>
+
+            <h3>Observaciones registradas</h3>
+            <div id="observationsList"></div>
+
+            <div class="export-row">
+                <button class="btn-primary" onclick="app.exportEntity('observations')">Exportar JSON</button>
+                <button class="btn-primary" onclick="app.exportEntityCSV('observations')">Exportar CSV</button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: INTERFAZ 4 - EMPATHY MAP -->
+        <section class="sheet" id="interfaz4">
+            <div class="field-card-num">Interfaz 04 / 06</div>
+            <h2>Empathy Map — "The Parser"</h2>
+            <p style="color: var(--ink-soft);">
+                Sujeto del mapa: <strong id="empathySubject"></strong>. Aquí se agarran frases sueltas de las
+                entrevistas y de la observación anterior y se van acomodando en lo que el usuario dice, hace,
+                piensa y siente, para después sacar de ahí insights concretos.
+            </p>
+
+            <h3>Bandeja de entrada — ruido cualitativo sin procesar</h3>
+            <p style="color: var(--ink-soft); margin-bottom: .8rem;">
+                Frases y observaciones que todavía no se han clasificado. Se le asigna un cuadrante a cada una.
+            </p>
+            <div class="card">
+                <div class="form-row">
+                    <input type="text" id="fragmentInput" placeholder="Escribe una frase u observación...">
+                    <button class="btn-secondary" onclick="app.addFragment()">Agregar a la bandeja</button>
+                </div>
+                <div id="inboxList"></div>
+            </div>
+
+            <h3>Cuadrícula 2×2</h3>
+            <div class="quad" id="quadGrid"></div>
+
+            <h3>Insights generados</h3>
+            <div class="card">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="insightType">Tipo de insight</label>
+                        <select id="insightType">
+                            <option value="usabilidad">Problema de usabilidad</option>
+                            <option value="necesidad-oculta">Necesidad oculta</option>
+                            <option value="carga-cognitiva">Carga cognitiva</option>
+                            <option value="adaptacion-manual">Adaptación manual</option>
+                            <option value="innovacion">Innovación potencial</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="insightPriority">Prioridad</label>
+                        <select id="insightPriority">
+                            <option value="alta">Alta</option>
+                            <option value="media">Media</option>
+                            <option value="baja">Baja</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="insightDesc">Descripción</label>
+                    <input type="text" id="insightDesc" placeholder="Describe el insight...">
+                </div>
+                <button class="btn-primary" onclick="app.addInsight()">Agregar insight</button>
+            </div>
+            <div id="insightsList"></div>
+            <div class="export-row">
+                <button class="btn-primary" onclick="app.exportInsights()">Exportar insights (JSON)</button>
+                <button class="btn-primary" onclick="app.exportInsightsCSV()">Exportar insights (CSV)</button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 6: INTERFAZ 5 - ROPER DYNAGRAM -->
+        <section class="sheet" id="interfaz5">
+            <div class="field-card-num">Interfaz 05 / 06</div>
+            <h2>Roper Dynagram — segmentación por valores</h2>
+            <p style="color: var(--ink-soft);">
+                Cada persona entrevistada se agrupa en un segmento de valores. El tamaño de cada sección de la
+                rueda representa la cuota real observada y se recalcula solo cada vez que se agrega un usuario
+                nuevo.
+            </p>
+
+            <div class="dyna-wrap">
+                <div id="wheelContainer"></div>
+                <div id="segmentList"></div>
+            </div>
+
+            <div id="dynaPanel"></div>
+
+            <h3>Agregar usuario entrevistado</h3>
+            <div class="card">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userName">Nombre</label>
+                        <input type="text" id="userName" placeholder="Nombre del usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="userSegment">Segmento</label>
+                        <select id="userSegment"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="userEvidence">Evidencia observada</label>
+                    <input type="text" id="userEvidence" placeholder="¿Por qué pertenece a este segmento?">
+                </div>
+                <button class="btn-primary" id="dynaSubmitBtn" onclick="app.addDynagramUser()">Agregar y
+                    recalcular</button>
+                <button class="btn-secondary" onclick="app.cancelDynaUserEdit()">Cancelar edición</button>
+            </div>
+
+            <h3>Usuarios entrevistados asignados a segmentos</h3>
+            <div id="dynaUsersList"></div>
+
+            <div class="export-row">
+                <button class="btn-primary" onclick="app.exportEntity('dynagram.users')">Exportar usuarios
+                    (JSON)</button>
+                <button class="btn-primary" onclick="app.exportDynagramCSV()">Exportar usuarios (CSV)</button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 7: INTERFAZ 6 - MAPEO DE REQUERIMIENTOS -->
+        <section class="sheet" id="interfaz6">
+            <div class="field-card-num">Interfaz 06 / 06 · Obligatoria</div>
+            <h2>Mapeo de Requerimientos — Dynagram interactivo</h2>
+            <p style="color: var(--ink-soft);">
+                Cada insight o segmento se vincula con un requisito funcional, un requisito UX y una decisión de
+                arquitectura. La prioridad no queda fija: cuando un segmento crece en la interfaz anterior, las
+                prioridades de esta tabla se recalculan solas.
+            </p>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Insight / segmento</th>
+                            <th>Requisito funcional</th>
+                            <th>Requisito UX</th>
+                            <th>Prioridad</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mappingTableBody"></tbody>
+                </table>
+            </div>
+
+            <h3>"Ley embebida" — recálculo automático</h3>
+            <p style="color: var(--ink-soft);">
+                Segmento dominante actual: <strong id="dominantSegment"></strong>. Cada vez que un usuario nuevo
+                cambia cuál es el segmento dominante, las filas ligadas a ese segmento suben a prioridad crítica
+                y las demás vuelven a su prioridad base.
+            </p>
+            <div class="card">
+                <button class="btn-secondary" onclick="app.recalculatePriorities(true)">Forzar recálculo</button>
+                <div id="recalcLog" style="margin-top: .8rem;"></div>
+            </div>
+
+            <h3>Vista de trazabilidad</h3>
+            <div id="traceView"></div>
+
+            <h3>Agregar vínculo</h3>
+            <div class="card">
+                <div class="form-group">
+                    <label for="mapInsight">Insight / segmento</label>
+                    <input type="text" id="mapInsight" placeholder="Ej. Necesidad oculta de...">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mapSegment">Segmento relacionado</label>
+                        <select id="mapSegment"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mapPriority">Prioridad base</label>
+                        <select id="mapPriority">
+                            <option value="alta">Alta</option>
+                            <option value="media">Media</option>
+                            <option value="baja">Baja</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="mapReqFunc">Requisito funcional</label>
+                    <input type="text" id="mapReqFunc" placeholder="¿Qué debe poder hacer el sistema?">
+                </div>
+                <div class="form-group">
+                    <label for="mapReqUX">Requisito UX / no funcional</label>
+                    <input type="text" id="mapReqUX" placeholder="¿Cómo debe sentirse al usarlo?">
+                </div>
+                <div class="form-group">
+                    <label for="mapDecision">Decisión de arquitectura</label>
+                    <input type="text" id="mapDecision" placeholder="¿Cómo se implementa técnicamente?">
+                </div>
+                <div class="form-row">
+                    <button class="btn-primary" id="mapSubmitBtn" onclick="app.addMappingRow()">Agregar
+                        vínculo</button>
+                    <button class="btn-secondary" onclick="app.cancelMappingEdit()">Cancelar edición</button>
+                </div>
+            </div>
+
+            <div class="export-row">
+                <button class="btn-primary" onclick="app.exportEntity('mapping.rows')">Exportar JSON</button>
+                <button class="btn-primary" onclick="app.exportMappingCSV()">Exportar CSV</button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: IMPLEMENTACIÓN FUNCIONAL - FORMULARIOS -->
+        <section class="sheet" id="implementacion">
+            <div class="field-card-num">Implementación funcional</div>
+            <h2>Sistema de Gestión — CRUD e Interfaces Funcionales</h2>
+
+            <h3>Reportar objeto encontrado o perdido</h3>
+            <p style="color: var(--ink-soft); margin-bottom: 1rem;">
+                Completa el formulario para reportar un objeto encontrado o perdido en el campus. Todos los campos
+                marcados
+                con <strong>*</strong> son requeridos. Se validará automáticamente el correo institucional.
+            </p>
+
+            <div class="card">
+                <form id="reportForm" novalidate>
+                    <div class="form-group">
+                        <label for="reporterName">Tu nombre *</label>
+                        <input type="text" id="reporterName" placeholder="Nombre completo" required>
+                        <div class="error-message">Este campo es requerido</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reporterEmail">Correo institucional (@uabc.mx) *</label>
+                        <input type="email" id="reporterEmail" placeholder="tu@uabc.mx" required>
+                        <div class="error-message">Usa tu email institucional válido</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reportType">Reportar como *</label>
+                            <select id="reportType" required>
+                                <option value="">Selecciona</option>
+                                <option value="encontrado">📍 Objeto encontrado</option>
+                                <option value="perdido">🔍 Objeto perdido</option>
+                            </select>
+                            <div class="error-message">Requerido</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reportCategory">Categoría *</label>
+                            <select id="reportCategory" required>
+                                <option value="">Selecciona</option>
+                                <option value="credencial">Credencial/ID</option>
+                                <option value="electronica">Electrónica</option>
+                                <option value="ropa">Ropa</option>
+                                <option value="accesorios">Accesorios</option>
+                                <option value="documentos">Documentos</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                            <div class="error-message">Requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportDescription">Descripción del objeto *</label>
+                        <input type="text" id="reportDescription" placeholder="Color, marca, características..."
+                            required>
+                        <div class="error-message">Requerido</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reportLocation">Ubicación *</label>
+                            <select id="reportLocation" required>
+                                <option value="">Selecciona</option>
+                                <option value="biblioteca">Biblioteca</option>
+                                <option value="aula">Salón de clases</option>
+                                <option value="explanada">Explanada</option>
+                                <option value="cafeteria">Cafetería</option>
+                                <option value="pasillo">Pasillo</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                            <div class="error-message">Requerido</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reportDate">Fecha (aprox.) *</label>
+                            <input type="date" id="reportDate" required>
+                            <div class="error-message">Requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportDetails">Detalles adicionales</label>
+                        <textarea id="reportDetails" rows="3"
+                            placeholder="Información que ayude a identificar el objeto..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="reportAgree" required style="width: auto; margin-right: 0.5rem;">
+                            <span style="font-family: 'Source Serif 4', Georgia, serif;">Confirmo que esta información
+                                es correcta y completa</span>
+                        </label>
+                        <div class="error-message">Debes aceptar para continuar</div>
+                    </div>
+
+                    <div class="form-row">
+                        <button type="submit" class="btn-primary" id="reportSubmitBtn">Enviar reporte</button>
+                        <button type="reset" class="btn-secondary" onclick="app.cancelRecordEdit()">Limpiar
+                            formulario</button>
+                    </div>
+                </form>
+            </div>
+
+            <h3>Registros actuales en el sistema</h3>
+            <p style="color: var(--ink-soft); margin-bottom: 1rem;">
+                Los siguientes registros están almacenados en localStorage y se sincronizarán automáticamente.
+                Puedes filtrar por ubicación o búsqueda de palabras clave.
+            </p>
+
+            <div class="card">
+                <label style="margin-bottom: 1rem;">🔍 Filtrar registros</label>
+                <div class="form-row">
+                    <input type="text" id="searchInput" placeholder="Buscar por descripción..."
+                        style="margin-bottom: 1rem;">
+                    <select id="filterLocation" style="margin-bottom: 1rem;">
+                        <option value="">Todas las ubicaciones</option>
+                        <option value="biblioteca">Biblioteca</option>
+                        <option value="aula">Salón de clases</option>
+                        <option value="explanada">Explanada</option>
+                        <option value="cafeteria">Cafetería</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="recordsContainer"></div>
+
+            <h3>Tabla de administración</h3>
+            <div class="table-wrap">
+                <table id="adminTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Objeto</th>
+                            <th>Tipo</th>
+                            <th>Ubicación</th>
+                            <th>Estado</th>
+                            <th>Reportado por</th>
+                            <th>Email</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody">
+                        <tr>
+                            <td colspan="8" style="text-align: center; color: var(--muted);">Sin registros aún</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Exportar y descargar datos</h3>
+            <p style="color: var(--ink-soft); margin-bottom: 1rem;">
+                Descarga tus registros en formato JSON para preservar la estructura completa, o en CSV para análisis
+                en Excel y herramientas similares.
+            </p>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <button class="btn-primary" onclick="app.exportJSON()"> Exportar JSON</button>
+                <button class="btn-primary" onclick="app.exportCSV()"> Exportar CSV</button>
+                <button class="btn-secondary" onclick="app.importCSV()"> Cargar CSV</button>
+                <button class="btn-danger" onclick="app.clearAllData()"> Limpiar todo</button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 6: CONCLUSIONES -->
+        <section class="sheet" id="reflexion">
+            <div class="eyebrow">Reflexión final</div>
+            <h2>Implementación y validación</h2>
+            <p>
+                Ubika UABC representa la materialización de necesidades reales identificadas mediante investigación de
+                campo rigurosa. Cada decisión de diseño e implementación técnica tiene rastreo directo a un insight,
+                una necesidad extrema, o una restricción operativa documentada.
+            </p>
+
+            <h3>Validaciones implementadas</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li> <strong>Email @uabc.mx requerido:</strong> Implementa restricción de seguridad del encargado</li>
+                <li> <strong>Campos requeridos con mensajes:</strong> Reduce fricción de usuarios inexpertos</li>
+                <li> <strong>Filtros dinámicos:</strong> Resuelve necesidad extrema de Diego (búsqueda instantánea)
+                </li>
+                <li> <strong>Interfaz minimalista:</strong> Responde a necesidad de Iván (3 botones grandes)</li>
+                <li> <strong>Persistencia automática:</strong> Los datos no se pierden al cerrar navegador</li>
+                <li> <strong>Exportación JSON/CSV:</strong> Permite análisis posterior y migración de datos</li>
+            </ul>
+
+            
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            Ubika UABC — Plataforma de Objetos Perdidos y Encontrados ·
+            Investigación de Usuarios e Interfaz Funcional ·
+            Universidad Autónoma de Baja California, FIAD
+        </footer>
+    </div>
+
+    <!-- MODAL PARA IMPORTACIÓN/CONTACTO -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Detalles del registro</h2>
+                <button class="close-btn" onclick="closeContactModal()">&times;</button>
+            </div>
+            <div id="contactContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const app = {
+            records: [],
+
+            experts: [
+                {
+                    id: 1,
+                    alias: 'Encargado de biblioteca',
+                    rol: 'Personal de atención — recepción empírica de objetos olvidados',
+                    dominio: 'Gestión informal de objetos perdidos y encontrados',
+                    experiencia: '4 años',
+                    organizacion: 'Biblioteca FIAD',
+                    fecha: '2026-09-10',
+                    medio: 'presencial',
+                    guion: [
+                        { q: '¿Cómo es el proceso actual?', a: 'Agarramos el objeto, lo metemos en una caja o cajón, y ahí se queda hasta que alguien se acuerde.', clave: false },
+                        { q: '¿Llevan algún registro?', a: 'La verdad no, no nos dan formatos. Confiamos en la memoria.', clave: false },
+                        { q: '¿Qué volumen manejan?', a: 'Se junta un buen de cosas: credenciales, termos, memorias USB, audífonos. En época de exámenes se llena rapidísimo.', clave: false },
+                        { q: '¿Qué pasa con lo que no se reclama?', a: 'Se quedan acumulando polvo. A veces donamos, tiramos, o se los quedan los compañeros.', clave: false },
+                        { q: '¿Cómo se enteran los dueños?', a: 'Casi siempre por chiripa. Llegan preguntando y nosotros revisamos la caja.', clave: false },
+                        { q: '¿Qué te preocupa de un sistema digital como Ubika?', a: 'Lo principal es asegurarnos de que al que le entreguemos el artículo sea el dueño de verdad. Pedirles su correo institucional @uabc.mx o que comprueben algún detalle exacto del objeto antes de dárselo en persona es clave para evitar malentendidos.', clave: true }
+                    ],
+                    mapaComplejidad: 'Conceptos clave: caja de perdidos, gaveta sin registro. No existe sistema digital, formulario ni registro escrito. Depende de memoria del personal.',
+                    restricciones: 'Verificación de identidad antes de entregar el objeto en persona; evitar exposición pública de quién encontró qué.',
+                    referencias: '—',
+                    requerimientoDerivado: 'El sistema debe exigir correo institucional @uabc.mx y permitir verificar detalles del objeto antes de la entrega en persona.',
+                    notas: 'Validar con más personal administrativo de otras áreas del campus.'
+                }
+            ],
+
+            extremeUsers: [
+                {
+                    id: 1,
+                    clasificacion: 'inexperto',
+                    alias: 'Iván M.',
+                    contexto: 'Estudiante de primer semestre, recién ingresado a la FIAD, totalmente desorientado con los espacios y la dinámica escolar. Baja afinidad a herramientas tecnológicas complejas.',
+                    habilidad: '2',
+                    tareasObservadas: 'Intentó buscar su credencial perdida preguntando en varias oficinas antes de enterarse de la caja de la biblioteca.',
+                    workarounds: 'Preguntó de viva voz en distintos módulos administrativos en vez de usar algún canal digital.',
+                    friccionesDetalle: [
+                        { friccion: 'Ausencia de puntos de entrada visibles y accesibles', ux: '3 botones grandes, sin opciones confusas', impl: 'Botones principales: "Reportar encontrado", "Reportar perdido", "Importar"' },
+                        { friccion: 'No conocía la caja de perdidos (invisibilidad)', ux: 'QR para acceso directo sin instalar nada', impl: 'Botón "Generar QR" con código descargable' }
+                    ],
+                    necesidadExtrema: 'Requiere guías visuales ultrarrápidas y accesibles sin curva de aprendizaje (ej. códigos QR estratégicos en puntos clave del campus).',
+                    hipotesisGeneralizacion: 'Un diseño minimalista y accesible mediante QR beneficia también al usuario mainstream que valora la inmediatez por encima de menús complejos.',
+                    evidencia: 'Perdió su credencial a las dos semanas de entrar; no conocía la caja de perdidos.'
+                },
+                {
+                    id: 2,
+                    clasificacion: 'super-experto',
+                    alias: 'Diego R.',
+                    contexto: 'Estudiante de 8º semestre, hiperconectado en múltiples grupos de WhatsApp. Funciona empíricamente como centro de acopio y difusor de avisos de su generación.',
+                    habilidad: '9',
+                    tareasObservadas: 'Recibe diariamente múltiples fotos de objetos olvidados y los reenvía manualmente a cuatro chats distintos.',
+                    workarounds: 'Reenvío manual de capturas de pantalla a varios grupos como sustituto de una base de datos centralizada.',
+                    friccionesDetalle: [
+                        { friccion: 'Colapso de notificaciones en WhatsApp', ux: 'Centralización de datos en plataforma única', impl: 'Base de datos centralizada en localStorage' },
+                        { friccion: 'Saturación de información sin filtros', ux: 'Filtros por ubicación, categoría, estado', impl: 'Filtros dinámicos que actualizan en tiempo real' },
+                        { friccion: 'Búsqueda manual en múltiples chats', ux: 'Búsqueda instantánea en toda la plataforma', impl: 'Buscador que filtra mientras escribes' }
+                    ],
+                    necesidadExtrema: 'Requiere automatización estricta de filtros por ubicación y categoría para dejar de fungir como centro de acopio humano y soporte manual.',
+                    hipotesisGeneralizacion: 'Los filtros inteligentes y la centralización de datos resuelven el caos operativo tanto para súper-expertos como para el alumno promedio.',
+                    evidencia: 'Reenvía diariamente fotos de objetos olvidados a cuatro chats de WhatsApp distintos.'
+                }
+            ],
+
+            observations: [
+                {
+                    id: 1,
+                    lugar: 'Explanada, pasillos y mostrador de biblioteca de la FIAD',
+                    fecha: '2026-09-20',
+                    duracion: '90 minutos',
+                    actividad: 'Comportamiento de estudiantes ante pérdida de objetos (observación no participante)',
+                    obvias: [
+                        'Quiero una aplicación donde pueda publicar la foto de lo que encontré',
+                        'Necesito un botón de búsqueda rápida por nombre o categoría del artículo'
+                    ],
+                    ocultas: [
+                        'Miedo latente a ser juzgado por descuido académico',
+                        'Incertidumbre emocional: ¿fue hurtado o simplemente está acumulado?',
+                        'Fricción social al reportar sin exposición pública',
+                        'Temor a ser acusado de apropiarse de un objeto ajeno'
+                    ],
+                    datoCrudo: 'Un estudiante encuentra una memoria USB en una mesa. La observa, duda unos segundos, mira a su alrededor y opta por guardarla en su mochila sin reportarla.',
+                    interpretacion: 'El usuario tiene intención correcta (no dejar el objeto abandonado), pero le frena el costo social, el tiempo que implica buscar al dueño, o la falta de un canal institucional rápido y anónimo para entregar el artículo.',
+                    potencial: 'alto'
+                }
+            ],
+
+            empathy: {
+                subject: 'Estudiante promedio que encuentra o pierde un objeto en la FIAD',
+                inbox: [
+                    'Sería súper práctico escanear un QR sin instalar nada',
+                    'Casi siempre por pura chiripa, llegan preguntando al aire',
+                    'Karla T.: me preocupa que se pierdan cosas con valor personal, como mi termo o mi bici',
+                    'Bruno L.: quiero ser el primero en probar cualquier app nueva y compartirla en mis redes',
+                    'Camila S.: no quiero que piensen que me robé algo nada más por traerlo en la mano'
+                ],
+                quadrants: {
+                    dice: [
+                        'No tenía ni la más remota idea de que existía la caja de objetos perdidos',
+                        'Es un caos, reenvío la foto a varios chats distintos'
+                    ],
+                    hace: [
+                        'Mira a su alrededor y guarda el objeto encontrado en su mochila sin reportarlo',
+                        'Reenvía manualmente capturas de pantalla a varios grupos de WhatsApp'
+                    ],
+                    piensa: [
+                        'Cree que preguntar en el mostrador le va a quitar tiempo de clase',
+                        'Piensa que si reporta el objeto puede parecer que se lo quiso quedar'
+                    ],
+                    siente: [
+                        'Alivio cuando recupera su credencial sin dar muchas explicaciones',
+                        'Frustración por no saber a quién avisar cuando encuentra algo'
+                    ]
+                },
+                insights: [
+                    { id: 1, type: 'necesidad-oculta', priority: 'alta', desc: 'El flujo de entrega debe evitar que el usuario se sienta sospechoso al reportar algo que encontró' },
+                    { id: 2, type: 'usabilidad', priority: 'alta', desc: 'No hay ninguna señal visible de que existe un lugar donde buscar objetos perdidos' },
+                    { id: 3, type: 'carga-cognitiva', priority: 'media', desc: 'Reenviar manualmente a varios chats genera desgaste y pérdida de información' }
+                ]
+            },
+
+            dynagram: {
+                segments: [
+                    { id: 'realists', name: 'Realists', values: 'Seguridad, pragmatismo', color: 'var(--accent)' },
+                    { id: 'open-minded', name: 'Open Minded', values: 'Curiosidad, individualidad, creatividad', color: 'var(--accent2)' },
+                    { id: 'adventurers', name: 'Adventurers', values: 'Estatus, poder, ambición', color: '#8a7a3b' },
+                    { id: 'organics', name: 'Organics', values: 'Naturaleza, belleza, arraigo', color: '#3b6e8a' }
+                ],
+                users: [
+                    { name: 'Iván M.', segment: 'realists', evidence: 'Prioriza rutas seguras y sin fricción, como escanear un QR en vez de preguntar' },
+                    { name: 'Diego R.', segment: 'open-minded', evidence: 'Organiza y centraliza información por su cuenta sin que nadie se lo pida' },
+                    { name: 'Encargado de biblioteca', segment: 'realists', evidence: 'Quiere reducir carga operativa con procesos simples y predecibles' },
+                    { name: 'Karla T.', segment: 'organics', evidence: 'Le preocupa que objetos con valor personal (termos, bicicletas) no se pierdan' },
+                    { name: 'Bruno L.', segment: 'adventurers', evidence: 'Quiere ser el primero en usar cualquier plataforma nueva y compartirla en redes' },
+                    { name: 'Camila S.', segment: 'realists', evidence: 'Prioriza no meterse en problemas ni parecer sospechosa al encontrar algo' }
+                ],
+                selectedSegment: null,
+                panels: {
+                    realists: { ux: 'Camino de reporte y devolución en el menor número de pasos posible, sin campos opcionales', func: 'Flujo de una sola pantalla para reportar y confirmar devolución', tono: 'Directo, sin decoración, mensajes cortos' },
+                    'open-minded': { ux: 'Posibilidad de explorar y filtrar libremente sin un flujo rígido', func: 'Búsqueda y filtros combinables por categoría, ubicación y fecha', tono: 'Flexible, con opciones visibles pero no obligatorias' },
+                    adventurers: { ux: 'Reconocimiento visible de quién ayuda a devolver objetos', func: 'Contador simple de devoluciones exitosas por usuario', tono: 'Con un toque de logro, sin exagerar en gamificación' },
+                    organics: { ux: 'Confianza en que el objeto se entregará con cuidado y sin exposición pública', func: 'Opción de reportar de forma privada y coordinar la entrega directamente', tono: 'Cuidadoso, cercano, nada corporativo' }
+                }
+            },
+
+            mapping: {
+                rows: [
+                    { id: 1, insight: 'Necesidad oculta: el reporte no debe hacer sentir sospechoso a quien encontró el objeto', segment: 'realists', reqFunc: 'Permitir reportar un objeto sin publicarlo abiertamente hasta que el dueño lo reclame', reqUX: 'Ningún indicador público de quién encontró qué', basePriority: 'alta', priority: 'alta', estado: 'Validado con Iván y la observación de la USB', decision: "Campo status con valor 'en_revision' oculto del listado público hasta confirmar entrega" },
+                    { id: 2, insight: 'Realists representan la mayor parte de la muestra entrevistada', segment: 'realists', reqFunc: 'Camino de reporte y devolución en máximo 3 pasos', reqUX: 'Sin pasos opcionales ni pantallas de bienvenida', basePriority: 'alta', priority: 'alta', estado: 'Validado con Iván, encargado y Camila', decision: "Formulario reducido a 4 campos obligatorios, el resto colapsado en 'detalles adicionales'" },
+                    { id: 3, insight: 'Colapso de WhatsApp como canal de coordinación', segment: 'open-minded', reqFunc: 'Centralizar reportes en una sola base de datos en vez de reenvíos manuales', reqUX: 'Filtros por ubicación y categoría visibles desde el inicio', basePriority: 'media', priority: 'media', estado: 'Validado con Diego', decision: 'Tabla única de registros en localStorage con filtros aplicados del lado del cliente' },
+                    { id: 4, insight: 'Restricción de seguridad señalada por el encargado de biblioteca', segment: 'realists', reqFunc: 'Exigir correo institucional @uabc.mx antes de la entrega en persona', reqUX: 'Campo de verificación obligatorio antes de mostrar el contacto', basePriority: 'alta', priority: 'alta', estado: 'Validado con el encargado', decision: 'Validación de patrón @uabc.mx en el campo de correo antes de enviar el formulario' },
+                    { id: 5, insight: 'Preferencia por entregas privadas de objetos con valor personal', segment: 'organics', reqFunc: 'Opción de coordinar la entrega directamente en vez de publicar el objeto', reqUX: 'Nada de exposición pública del objeto hasta acordar el punto de entrega', basePriority: 'baja', priority: 'baja', estado: 'Por validar con más usuarios', decision: 'Campo opcional de contacto directo que habilita coordinar la entrega en privado' }
+                ],
+                log: []
+            },
+
+            init() {
+                this.loadData();
+                this.setupListeners();
+                this.render();
+                this.renderExperts();
+                this.renderExtreme();
+                this.renderObservations();
+                this.renderEmpathy();
+                this.renderDynagram();
+                this.recalculatePriorities();
+                console.log(' Ubika UABC iniciada');
+            },
+
+            setupListeners() {
+                document.getElementById('reportForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.submitReport();
+                });
+
+                document.getElementById('searchInput').addEventListener('input', () => {
+                    this.filterRecords();
+                });
+
+                document.getElementById('filterLocation').addEventListener('change', () => {
+                    this.filterRecords();
+                });
+            },
+
+            validateForm() {
+                const form = document.getElementById('reportForm');
+                let isValid = true;
+
+                form.querySelectorAll('[required]').forEach(field => {
+                    const errorMsg = field.parentElement.querySelector('.error-message');
+
+                    if (!field.value.trim()) {
+                        field.classList.add('error');
+                        if (errorMsg) errorMsg.classList.add('show');
+                        isValid = false;
+                    } else if (field.type === 'email' && !this.isValidEmail(field.value)) {
+                        field.classList.add('error');
+                        if (errorMsg) errorMsg.classList.add('show');
+                        isValid = false;
+                    } else if (field.type === 'checkbox' && !field.checked) {
+                        field.classList.add('error');
+                        if (errorMsg) errorMsg.classList.add('show');
+                        isValid = false;
+                    } else {
+                        field.classList.remove('error');
+                        if (errorMsg) errorMsg.classList.remove('show');
+                    }
+                });
+
+                return isValid;
+            },
+
+            isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            },
+
+            submitReport() {
+                if (!this.validateForm()) {
+                    this.showAlert('Por favor completa todos los campos requeridos', 'error');
+                    return;
+                }
+
+                const fields = {
+                    type: document.getElementById('reportType').value,
+                    category: document.getElementById('reportCategory').value,
+                    description: document.getElementById('reportDescription').value,
+                    location: document.getElementById('reportLocation').value,
+                    date: document.getElementById('reportDate').value,
+                    details: document.getElementById('reportDetails').value || null,
+                    reportedBy: document.getElementById('reporterName').value,
+                    reporterEmail: document.getElementById('reporterEmail').value
+                };
+
+                if (this.editingRecordId) {
+                    const record = this.records.find(r => r.id === this.editingRecordId);
+                    Object.assign(record, fields);
+                    this.editingRecordId = null;
+                    document.getElementById('reportSubmitBtn').textContent = 'Enviar reporte';
+                    this.showAlert(' Registro actualizado', 'success');
+                } else {
+                    this.records.push({ id: Date.now(), ...fields, status: 'activo', createdAt: new Date().toISOString() });
+                    this.showAlert(' Objeto reportado exitosamente', 'success');
+                }
+
+                this.saveData();
+                this.render();
+                document.getElementById('reportForm').reset();
+            },
+
+            editRecord(id) {
+                const r = this.records.find(x => x.id === id);
+                if (!r) return;
+                document.getElementById('reportType').value = r.type;
+                document.getElementById('reportCategory').value = r.category;
+                document.getElementById('reportDescription').value = r.description;
+                document.getElementById('reportLocation').value = r.location;
+                document.getElementById('reportDate').value = r.date || '';
+                document.getElementById('reportDetails').value = r.details || '';
+                document.getElementById('reporterName').value = r.reportedBy;
+                document.getElementById('reporterEmail').value = r.reporterEmail;
+                document.getElementById('reportAgree').checked = true;
+                this.editingRecordId = id;
+                document.getElementById('reportSubmitBtn').textContent = 'Guardar cambios';
+                document.getElementById('reportForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            },
+
+            cancelRecordEdit() {
+                this.editingRecordId = null;
+                document.getElementById('reportSubmitBtn').textContent = 'Enviar reporte';
+            },
+
+            filterRecords() {
+                const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
+                const location = document.getElementById('filterLocation')?.value || '';
+
+                const filtered = this.records.filter(r => {
+                    const matchesSearch = !search ||
+                        r.description.toLowerCase().includes(search) ||
+                        r.category.toLowerCase().includes(search);
+                    const matchesLocation = !location || r.location === location;
+                    return matchesSearch && matchesLocation;
+                });
+
+                this.renderRecords(filtered);
+            },
+
+            render() {
+                this.renderRecords(this.records);
+                this.renderTable();
+            },
+
+            renderRecords(records) {
+                const container = document.getElementById('recordsContainer');
+
+                if (records.length === 0) {
+                    container.innerHTML = '<div class="empty-state"><p>No hay registros aún</p></div>';
+                    return;
+                }
+
+                container.innerHTML = records.map(r => `
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: start; gap: 1rem;">
+                            <div style="flex: 1;">
+                                <span class="badge badge-${r.type}">${r.type}</span>
+                                <h3 style="margin-top: 0.5rem;">${r.description}</h3>
+                                <p style="font-size: 0.9rem; margin: 0.3rem 0; color: var(--ink-soft);">
+                                    <strong>Categoría:</strong> ${r.category} | 
+                                    <strong>Ubicación:</strong> ${r.location}
+                                </p>
+                                <p style="font-size: 0.85rem; color: var(--muted); margin: 0.3rem 0;">
+                                    ${r.details ? '<strong>Detalles:</strong> ' + r.details : ''}
+                                </p>
+                                <p style="font-size: 0.85rem; color: var(--muted);">
+                                    Reportado por: <strong>${r.reportedBy}</strong> (${r.reporterEmail})
+                                </p>
+                            </div>
+                            <div style="text-align: right;">
+                                <span class="badge badge-activo">${r.status}</span>
+                                <div class="entry-actions" style="justify-content:flex-end;">
+                                    <button class="btn-secondary" onclick="app.editRecord(${r.id})">Editar</button>
+                                    <button class="btn-danger" onclick="app.deleteRecord(${r.id})">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            renderTable() {
+                const tbody = document.getElementById('adminTableBody');
+
+                if (this.records.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">Sin registros</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = this.records.map(r => `
+                    <tr>
+                        <td><span class="mono" style="font-size: 0.75rem;">#${r.id}</span></td>
+                        <td><strong>${r.description}</strong></td>
+                        <td>${r.type}</td>
+                        <td>${r.location}</td>
+                        <td><span class="badge badge-${r.status}">${r.status}</span></td>
+                        <td>${r.reportedBy}</td>
+                        <td><span class="mono" style="font-size: 0.75rem;">${r.reporterEmail}</span></td>
+                        <td>
+                            <button class="btn-success" onclick="app.editRecord(${r.id})">Editar</button>
+                            <button class="btn-success" onclick="app.deleteRecord(${r.id})">Eliminar</button>
+                        </td>
+                    </tr>
+                `).join('');
+            },
+
+            deleteRecord(id) {
+                if (confirm('¿Eliminar este registro?')) {
+                    this.records = this.records.filter(r => r.id !== id);
+                    this.saveData();
+                    this.render();
+                    this.showAlert(' Registro eliminado', 'success');
+                }
+            },
+
+            exportJSON() {
+                const data = JSON.stringify(this.records, null, 2);
+                const blob = new Blob([data], { type: 'application/json' });
+                this.downloadFile(blob, `ubika_${this.getDate()}.json`);
+                this.showAlert(' Exportado a JSON', 'success');
+            },
+
+            exportCSV() {
+                const headers = ['ID', 'Tipo', 'Categoría', 'Descripción', 'Ubicación', 'Estado', 'Reportado por', 'Email', 'Fecha'];
+                const rows = this.records.map(r => [
+                    r.id, r.type, r.category, r.description, r.location, r.status, r.reportedBy, r.reporterEmail,
+                    new Date(r.createdAt).toLocaleString()
+                ]);
+                const csv = [headers, ...rows].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+                const blob = new Blob([csv], { type: 'text/csv' });
+                this.downloadFile(blob, `ubika_${this.getDate()}.csv`);
+                this.showAlert(' Exportado a CSV', 'success');
+            },
+
+            downloadFile(blob, name) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = name;
+                a.click();
+                URL.revokeObjectURL(url);
+            },
+
+            downloadCSV(headers, rows, filename) {
+                const csv = [headers, ...rows].map(row => row.map(cell => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+                const blob = new Blob([csv], { type: 'text/csv' });
+                this.downloadFile(blob, filename);
+                this.showAlert('Exportado a CSV', 'success');
+            },
+
+            getEntityArray(path) {
+                return path.split('.').reduce((obj, key) => obj[key], this);
+            },
+
+            exportEntity(path) {
+                const arr = this.getEntityArray(path);
+                const data = JSON.stringify(arr, null, 2);
+                const blob = new Blob([data], { type: 'application/json' });
+                this.downloadFile(blob, `ubika_${path.replace('.', '_')}_${this.getDate()}.json`);
+                this.showAlert('Exportado a JSON', 'success');
+            },
+
+            exportEntityCSV(path) {
+                const arr = this.getEntityArray(path);
+                if (!arr.length) { this.showAlert('No hay registros que exportar todavía', 'error'); return; }
+                const headers = Object.keys(arr[0]);
+                const rows = arr.map(item => headers.map(h => item[h]));
+                this.downloadCSV(headers, rows, `ubika_${path.replace('.', '_')}_${this.getDate()}.csv`);
+            },
+
+            importCSV() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.csv';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                            const lines = event.target.result.trim().split('\n');
+                            for (let i = 1; i < lines.length; i++) {
+                                const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+                                if (values.length > 1) {
+                                    const record = {
+                                        id: Date.now() + i,
+                                        type: 'encontrado',
+                                        category: values[1] || 'otro',
+                                        description: values[0] || 'Sin descripción',
+                                        location: 'biblioteca',
+                                        reportedBy: 'Importado',
+                                        reporterEmail: 'import@uabc.mx',
+                                        status: 'activo',
+                                        createdAt: new Date().toISOString()
+                                    };
+                                    this.records.push(record);
+                                }
+                            }
+                            this.saveData();
+                            this.render();
+                            this.showAlert(' CSV importado exitosamente', 'success');
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
+            },
+
+            clearAllData() {
+                if (confirm('⚠️ ¿Eliminar TODOS los datos? Esta acción no se puede deshacer.')) {
+                    this.records = [];
+                    this.saveData();
+                    this.render();
+                    this.showAlert(' Todos los datos han sido eliminados', 'success');
+                }
+            },
+
+            // ---- Interfaz 1: Entrevista a Expertos ----
+
+            renderExperts() {
+                const el = document.getElementById('expertsList');
+                if (!el) return;
+                el.innerHTML = this.experts.length ? this.experts.map(e => `
+                    <div class="card">
+                        <div class="ficha" style="border:none; padding:0; margin-bottom:.6rem;">
+                            <div class="rol">${e.rol}</div>
+                            <div class="nombre">${e.alias} — ${e.experiencia}, ${e.organizacion} (${e.medio})</div>
+                        </div>
+                        <h3>Guion</h3>
+                        <ul style="margin-left:1.2rem; font-size:.9rem;">
+                            ${e.guion.map(g => `<li><strong>${g.q}</strong> ${g.clave ? '<span class="badge badge-alta">cita clave</span>' : ''}<br>${g.clave ? `<div class="oculta" style="margin-top:.3rem;">"${g.a}"</div>` : g.a}</li>`).join('')}
+                        </ul>
+                        <p style="margin-top:.6rem; font-size:.9rem;"><strong>Complejidad técnica:</strong> ${e.mapaComplejidad || '—'}</p>
+                        <p style="font-size:.9rem;"><strong>Restricciones/riesgos:</strong> ${e.restricciones || '—'}</p>
+                        <p style="font-size:.9rem;"><strong>Referencias:</strong> ${e.referencias || '—'}</p>
+                        <p style="font-size:.9rem;"><strong>Requerimiento derivado:</strong> ${e.requerimientoDerivado || '—'}</p>
+                        <p style="font-size:.85rem; color: var(--muted);"><strong>Notas:</strong> ${e.notas || '—'}</p>
+                        <div class="entry-actions">
+                            <button class="btn-secondary" onclick="app.editExpert(${e.id})">Editar</button>
+                            <button class="btn-danger" onclick="app.deleteExpert(${e.id})">Eliminar</button>
+                        </div>
+                    </div>
+                `).join('') : '<p style="color: var(--muted); font-size:.9rem;">Sin expertos registrados todavía.</p>';
+            },
+
+            parseGuion(text) {
+                return text.split('\n').map(l => l.trim()).filter(Boolean).map(line => {
+                    const clave = line.endsWith('**');
+                    line = clave ? line.slice(0, -2).trim() : line;
+                    const [left, right] = line.split('|');
+                    const q = (left || '').replace(/^P:\s*/i, '').trim();
+                    const a = (right || '').replace(/^R:\s*/i, '').trim();
+                    return { q: q || line, a: a || '', clave };
+                });
+            },
+
+            saveExpert() {
+                const alias = document.getElementById('expAlias').value.trim();
+                const rol = document.getElementById('expRol').value.trim();
+                if (!alias || !rol) { this.showAlert('Completa al menos alias y rol', 'error'); return; }
+                const data = {
+                    alias, rol,
+                    dominio: document.getElementById('expDominio').value.trim(),
+                    experiencia: document.getElementById('expExperiencia').value.trim(),
+                    organizacion: document.getElementById('expOrganizacion').value.trim(),
+                    fecha: document.getElementById('expFecha').value,
+                    medio: document.getElementById('expMedio').value,
+                    guion: this.parseGuion(document.getElementById('expGuion').value),
+                    mapaComplejidad: document.getElementById('expComplejidad').value.trim(),
+                    restricciones: document.getElementById('expRestricciones').value.trim(),
+                    referencias: document.getElementById('expReferencias').value.trim(),
+                    requerimientoDerivado: document.getElementById('expRequerimiento').value.trim(),
+                    notas: document.getElementById('expNotas').value.trim()
+                };
+                if (this.editingExpertId) {
+                    Object.assign(this.experts.find(x => x.id === this.editingExpertId), data);
+                    this.editingExpertId = null;
+                    document.getElementById('expSubmitBtn').textContent = 'Agregar experto';
+                    this.showAlert('Experto actualizado', 'success');
+                } else {
+                    this.experts.push({ id: Date.now(), ...data });
+                    this.showAlert('Experto agregado', 'success');
+                }
+                ['expAlias', 'expRol', 'expDominio', 'expExperiencia', 'expOrganizacion', 'expFecha', 'expGuion', 'expComplejidad', 'expRestricciones', 'expReferencias', 'expRequerimiento', 'expNotas'].forEach(id => document.getElementById(id).value = '');
+                this.renderExperts();
+                this.saveData();
+            },
+
+            editExpert(id) {
+                const e = this.experts.find(x => x.id === id);
+                if (!e) return;
+                document.getElementById('expAlias').value = e.alias;
+                document.getElementById('expRol').value = e.rol;
+                document.getElementById('expDominio').value = e.dominio || '';
+                document.getElementById('expExperiencia').value = e.experiencia || '';
+                document.getElementById('expOrganizacion').value = e.organizacion || '';
+                document.getElementById('expFecha').value = e.fecha || '';
+                document.getElementById('expMedio').value = e.medio || 'presencial';
+                document.getElementById('expGuion').value = e.guion.map(g => `P: ${g.q} | R: ${g.a}${g.clave ? ' **' : ''}`).join('\n');
+                document.getElementById('expComplejidad').value = e.mapaComplejidad || '';
+                document.getElementById('expRestricciones').value = e.restricciones || '';
+                document.getElementById('expReferencias').value = e.referencias || '';
+                document.getElementById('expRequerimiento').value = e.requerimientoDerivado || '';
+                document.getElementById('expNotas').value = e.notas || '';
+                this.editingExpertId = id;
+                document.getElementById('expSubmitBtn').textContent = 'Guardar cambios';
+                document.getElementById('expertFormTitle').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            },
+
+            cancelExpertEdit() {
+                this.editingExpertId = null;
+                document.getElementById('expSubmitBtn').textContent = 'Agregar experto';
+            },
+
+            deleteExpert(id) {
+                if (!confirm('¿Eliminar este experto?')) return;
+                this.experts = this.experts.filter(x => x.id !== id);
+                this.renderExperts();
+                this.saveData();
+            },
+
+            // ---- Interfaz 2: Usuarios Extremos ----
+
+            renderExtreme() {
+                const el = document.getElementById('extremeList');
+                if (!el) return;
+                el.innerHTML = this.extremeUsers.length ? this.extremeUsers.map(u => `
+                    <div class="card">
+                        <div class="ficha" style="border:none; padding:0; margin-bottom:.6rem;">
+                            <div class="rol">${u.clasificacion === 'super-experto' ? 'Súper-experto' : 'Inexperto'}</div>
+                            <div class="nombre">${u.alias} — Habilidad: ${u.habilidad}/10</div>
+                            <p style="font-size:.9rem; margin-top:.3rem;">${u.contexto}</p>
+                        </div>
+                        <p style="font-size:.9rem;"><strong>Tareas observadas:</strong> ${u.tareasObservadas || '—'}</p>
+                        <p style="font-size:.9rem;"><strong>Workarounds:</strong> ${u.workarounds || '—'}</p>
+                        <div class="obvia"><strong>Necesidad extrema:</strong> ${u.necesidadExtrema || '—'}</div>
+                        <div class="obvia"><strong>Hipótesis de generalización:</strong> ${u.hipotesisGeneralizacion || '—'}</div>
+                        ${(u.friccionesDetalle && u.friccionesDetalle.length) ? `
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>Fricción</th><th>Requisito UX</th><th>Implementación</th></tr></thead>
+                                <tbody>${u.friccionesDetalle.map(f => `<tr><td>${f.friccion}</td><td>${f.ux}</td><td>${f.impl}</td></tr>`).join('')}</tbody>
+                            </table>
+                        </div>` : ''}
+                        <p style="font-size:.85rem; color: var(--muted);"><strong>Evidencia:</strong> ${u.evidencia || '—'}</p>
+                        <div class="entry-actions">
+                            <button class="btn-secondary" onclick="app.editExtreme(${u.id})">Editar</button>
+                            <button class="btn-danger" onclick="app.deleteExtreme(${u.id})">Eliminar</button>
+                        </div>
+                    </div>
+                `).join('') : '<p style="color: var(--muted); font-size:.9rem;">Sin usuarios extremos registrados todavía.</p>';
+            },
+
+            parseFricciones(text) {
+                return text.split('\n').map(l => l.trim()).filter(Boolean).map(line => {
+                    const [friccion, ux, impl] = line.split('→').map(s => (s || '').trim());
+                    return { friccion: friccion || line, ux: ux || '', impl: impl || '' };
+                });
+            },
+
+            saveExtreme() {
+                const alias = document.getElementById('extAlias').value.trim();
+                if (!alias) { this.showAlert('Ingresa el alias del usuario', 'error'); return; }
+                const data = {
+                    clasificacion: document.getElementById('extClasificacion').value,
+                    alias,
+                    contexto: document.getElementById('extContexto').value.trim(),
+                    habilidad: document.getElementById('extHabilidad').value.trim(),
+                    tareasObservadas: document.getElementById('extTareas').value.trim(),
+                    workarounds: document.getElementById('extWorkarounds').value.trim(),
+                    friccionesDetalle: this.parseFricciones(document.getElementById('extFricciones').value),
+                    necesidadExtrema: document.getElementById('extNecesidad').value.trim(),
+                    hipotesisGeneralizacion: document.getElementById('extHipotesis').value.trim(),
+                    evidencia: document.getElementById('extEvidencia').value.trim()
+                };
+                if (this.editingExtremeId) {
+                    Object.assign(this.extremeUsers.find(x => x.id === this.editingExtremeId), data);
+                    this.editingExtremeId = null;
+                    document.getElementById('extSubmitBtn').textContent = 'Agregar usuario extremo';
+                    this.showAlert('Usuario extremo actualizado', 'success');
+                } else {
+                    this.extremeUsers.push({ id: Date.now(), ...data });
+                    this.showAlert('Usuario extremo agregado', 'success');
+                }
+                ['extAlias', 'extContexto', 'extHabilidad', 'extTareas', 'extWorkarounds', 'extFricciones', 'extNecesidad', 'extHipotesis', 'extEvidencia'].forEach(id => document.getElementById(id).value = '');
+                this.renderExtreme();
+                this.saveData();
+            },
+
+            editExtreme(id) {
+                const u = this.extremeUsers.find(x => x.id === id);
+                if (!u) return;
+                document.getElementById('extClasificacion').value = u.clasificacion;
+                document.getElementById('extAlias').value = u.alias;
+                document.getElementById('extContexto').value = u.contexto || '';
+                document.getElementById('extHabilidad').value = u.habilidad || '';
+                document.getElementById('extTareas').value = u.tareasObservadas || '';
+                document.getElementById('extWorkarounds').value = u.workarounds || '';
+                document.getElementById('extFricciones').value = (u.friccionesDetalle || []).map(f => `${f.friccion} → ${f.ux} → ${f.impl}`).join('\n');
+                document.getElementById('extNecesidad').value = u.necesidadExtrema || '';
+                document.getElementById('extHipotesis').value = u.hipotesisGeneralizacion || '';
+                document.getElementById('extEvidencia').value = u.evidencia || '';
+                this.editingExtremeId = id;
+                document.getElementById('extSubmitBtn').textContent = 'Guardar cambios';
+                document.getElementById('extAlias').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            },
+
+            cancelExtremeEdit() {
+                this.editingExtremeId = null;
+                document.getElementById('extSubmitBtn').textContent = 'Agregar usuario extremo';
+            },
+
+            deleteExtreme(id) {
+                if (!confirm('¿Eliminar este usuario extremo?')) return;
+                this.extremeUsers = this.extremeUsers.filter(x => x.id !== id);
+                this.renderExtreme();
+                this.saveData();
+            },
+
+            // ---- Interfaz 3: Observación Directa / Iceberg ----
+
+            renderObservations() {
+                const el = document.getElementById('observationsList');
+                if (!el) return;
+                el.innerHTML = this.observations.length ? this.observations.map(o => `
+                    <div class="card">
+                        <p style="font-size:.85rem; color: var(--muted);">
+                            <strong>Lugar:</strong> ${o.lugar} · <strong>Fecha:</strong> ${o.fecha || '—'} ·
+                            <strong>Duración:</strong> ${o.duracion} · <strong>Actividad:</strong> ${o.actividad}
+                        </p>
+                        <div class="obvia">
+                            <strong>Necesidades obvias:</strong>
+                            <ul style="margin-left:1rem; margin-top:.4rem;">${o.obvias.map(x => `<li>"${x}"</li>`).join('') || '<li>—</li>'}</ul>
+                        </div>
+                        <div class="oculta">
+                            <strong>Necesidades ocultas:</strong>
+                            <ul style="margin-left:1rem; margin-top:.4rem;">${o.ocultas.map(x => `<li>${x}</li>`).join('') || '<li>—</li>'}</ul>
+                        </div>
+                        <p style="font-size:.9rem; margin-top:.5rem;"><strong>Dato crudo:</strong> ${o.datoCrudo || '—'}</p>
+                        <p style="font-size:.9rem;"><strong>Interpretación:</strong> ${o.interpretacion || '—'}</p>
+                        <p style="font-size:.9rem;"><strong>Potencial de innovación:</strong>
+                            <span class="badge badge-${o.potencial === 'alto' ? 'alta' : 'baja'}">${o.potencial}</span></p>
+                        <div class="entry-actions">
+                            <button class="btn-secondary" onclick="app.editObservation(${o.id})">Editar</button>
+                            <button class="btn-danger" onclick="app.deleteObservation(${o.id})">Eliminar</button>
+                        </div>
+                    </div>
+                `).join('') : '<p style="color: var(--muted); font-size:.9rem;">Sin observaciones registradas todavía.</p>';
+            },
+
+            saveObservation() {
+                const lugar = document.getElementById('obsLugar').value.trim();
+                if (!lugar) { this.showAlert('Indica el lugar de la observación', 'error'); return; }
+                const data = {
+                    lugar,
+                    fecha: document.getElementById('obsFecha').value,
+                    duracion: document.getElementById('obsDuracion').value.trim(),
+                    actividad: document.getElementById('obsActividad').value.trim(),
+                    obvias: document.getElementById('obsObvias').value.split('\n').map(l => l.trim()).filter(Boolean),
+                    ocultas: document.getElementById('obsOcultas').value.split('\n').map(l => l.trim()).filter(Boolean),
+                    datoCrudo: document.getElementById('obsDatoCrudo').value.trim(),
+                    interpretacion: document.getElementById('obsInterpretacion').value.trim(),
+                    potencial: document.getElementById('obsPotencial').value
+                };
+                if (this.editingObservationId) {
+                    Object.assign(this.observations.find(x => x.id === this.editingObservationId), data);
+                    this.editingObservationId = null;
+                    document.getElementById('obsSubmitBtn').textContent = 'Agregar observación';
+                    this.showAlert('Observación actualizada', 'success');
+                } else {
+                    this.observations.push({ id: Date.now(), ...data });
+                    this.showAlert('Observación agregada', 'success');
+                }
+                ['obsLugar', 'obsFecha', 'obsDuracion', 'obsActividad', 'obsObvias', 'obsOcultas', 'obsDatoCrudo', 'obsInterpretacion'].forEach(id => document.getElementById(id).value = '');
+                this.renderObservations();
+                this.saveData();
+            },
+
+            editObservation(id) {
+                const o = this.observations.find(x => x.id === id);
+                if (!o) return;
+                document.getElementById('obsLugar').value = o.lugar;
+                document.getElementById('obsFecha').value = o.fecha || '';
+                document.getElementById('obsDuracion').value = o.duracion || '';
+                document.getElementById('obsActividad').value = o.actividad || '';
+                document.getElementById('obsObvias').value = o.obvias.join('\n');
+                document.getElementById('obsOcultas').value = o.ocultas.join('\n');
+                document.getElementById('obsDatoCrudo').value = o.datoCrudo || '';
+                document.getElementById('obsInterpretacion').value = o.interpretacion || '';
+                document.getElementById('obsPotencial').value = o.potencial;
+                this.editingObservationId = id;
+                document.getElementById('obsSubmitBtn').textContent = 'Guardar cambios';
+                document.getElementById('obsLugar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            },
+
+            cancelObservationEdit() {
+                this.editingObservationId = null;
+                document.getElementById('obsSubmitBtn').textContent = 'Agregar observación';
+            },
+
+            deleteObservation(id) {
+                if (!confirm('¿Eliminar esta observación?')) return;
+                this.observations = this.observations.filter(x => x.id !== id);
+                this.renderObservations();
+                this.saveData();
+            },
+
+            // ---- Interfaz 4: Empathy Map ----
+
+            renderEmpathy() {
+                document.getElementById('empathySubject').textContent = this.empathy.subject;
+
+                document.getElementById('inboxList').innerHTML = this.empathy.inbox.length ? this.empathy.inbox.map((frag, i) => `
+                    <div class="fragment-item">
+                        <span>"${frag}"</span>
+                        <select id="quadSelect${i}">
+                            <option value="dice">Dice</option>
+                            <option value="hace">Hace</option>
+                            <option value="piensa">Piensa</option>
+                            <option value="siente">Siente</option>
+                        </select>
+                        <button class="btn-secondary" onclick="app.assignFragment(${i})">Asignar</button>
+                        <button class="btn-danger" onclick="app.deleteFragment(${i})">Eliminar</button>
+                    </div>
+                `).join('') : '<p style="color: var(--muted); font-size: .85rem; padding-top: .5rem;">Bandeja vacía, todo el ruido cualitativo ya fue clasificado.</p>';
+
+                const labels = { dice: 'Dice', hace: 'Hace', piensa: 'Piensa', siente: 'Siente' };
+                document.getElementById('quadGrid').innerHTML = Object.keys(labels).map(q => `
+                    <div class="qbox">
+                        <span class="qlabel">${labels[q]}</span>
+                        <ul>${this.empathy.quadrants[q].map((f, i) => `<li>"${f}" <button class="btn-danger" style="padding:.1rem .4rem; font-size:.6rem;" onclick="app.deleteQuadrantItem('${q}', ${i})">×</button></li>`).join('') || '<li style="color: var(--muted);">Sin fragmentos aún</li>'}</ul>
+                    </div>
+                `).join('');
+
+                const typeLabels = {
+                    usabilidad: 'Problema de usabilidad', 'necesidad-oculta': 'Necesidad oculta',
+                    'carga-cognitiva': 'Carga cognitiva', 'adaptacion-manual': 'Adaptación manual', innovacion: 'Innovación potencial'
+                };
+                document.getElementById('insightsList').innerHTML = this.empathy.insights.map(ins => `
+                    <div class="insight-card">
+                        <span class="badge badge-${ins.priority}">${ins.priority}</span>
+                        <span class="mono" style="font-size: .72rem; color: var(--accent); margin-left: .5rem;">${typeLabels[ins.type]}</span>
+                        <p style="margin-top: .4rem;">${ins.desc}</p>
+                        <div class="entry-actions">
+                            <button class="btn-secondary" onclick="app.editInsight(${ins.id})">Editar</button>
+                            <button class="btn-danger" onclick="app.deleteInsight(${ins.id})">Eliminar</button>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            deleteFragment(i) {
+                this.empathy.inbox.splice(i, 1);
+                this.renderEmpathy();
+                this.saveData();
+            },
+
+            deleteQuadrantItem(q, i) {
+                this.empathy.quadrants[q].splice(i, 1);
+                this.renderEmpathy();
+                this.saveData();
+            },
+
+            editInsight(id) {
+                const ins = this.empathy.insights.find(x => x.id === id);
+                if (!ins) return;
+                document.getElementById('insightType').value = ins.type;
+                document.getElementById('insightPriority').value = ins.priority;
+                document.getElementById('insightDesc').value = ins.desc;
+                this.editingInsightId = id;
+                document.getElementById('insightDesc').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            },
+
+            deleteInsight(id) {
+                if (!confirm('¿Eliminar este insight?')) return;
+                this.empathy.insights = this.empathy.insights.filter(x => x.id !== id);
+                this.renderEmpathy();
+                this.saveData();
+            },
+
+            exportInsightsCSV() {
+                const headers = ['Tipo', 'Prioridad', 'Descripción'];
+                const rows = this.empathy.insights.map(i => [i.type, i.priority, i.desc]);
+                this.downloadCSV(headers, rows, `ubika_insights_${this.getDate()}.csv`);
+            },
+
+            addFragment() {
+                const input = document.getElementById('fragmentInput');
+                const val = input.value.trim();
+                if (!val) return;
+                this.empathy.inbox.push(val);
+                input.value = '';
+                this.renderEmpathy();
+                this.saveData();
+            },
+
+            assignFragment(i) {
+                const select = document.getElementById('quadSelect' + i);
+                const quad = select.value;
+                const frag = this.empathy.inbox[i];
+                this.empathy.quadrants[quad].push(frag);
+                this.empathy.inbox.splice(i, 1);
+                this.renderEmpathy();
+                this.saveData();
+                this.showAlert('Fragmento clasificado en "' + quad + '"', 'success');
+            },
+
+            addInsight() {
+                const type = document.getElementById('insightType').value;
+                const priority = document.getElementById('insightPriority').value;
+                const desc = document.getElementById('insightDesc').value.trim();
+                if (!desc) {
+                    this.showAlert('Describe el insight antes de agregarlo', 'error');
+                    return;
+                }
+                if (this.editingInsightId) {
+                    const ins = this.empathy.insights.find(x => x.id === this.editingInsightId);
+                    Object.assign(ins, { type, priority, desc });
+                    this.editingInsightId = null;
+                    this.showAlert('Insight actualizado', 'success');
+                } else {
+                    this.empathy.insights.push({ id: Date.now(), type, priority, desc });
+                    this.showAlert('Insight agregado', 'success');
+                }
+                document.getElementById('insightDesc').value = '';
+                this.renderEmpathy();
+                this.saveData();
+            },
+
+            exportInsights() {
+                const data = JSON.stringify(this.empathy.insights, null, 2);
+                const blob = new Blob([data], { type: 'application/json' });
+                this.downloadFile(blob, `ubika_insights_${this.getDate()}.json`);
+                this.showAlert('Insights exportados', 'success');
+            },
+
+            // ---- Interfaz 5: Roper Dynagram ----
+
+            buildWheelSVG(segments) {
+                const total = segments.reduce((s, x) => s + x.count, 0) || 1;
+                const cx = 90, cy = 90, r = 70, ir = 38;
+                let angle = -90;
+                let paths = '';
+                segments.forEach(seg => {
+                    if (seg.count === 0) return;
+                    const pct = seg.count / total;
+                    const sweep = pct * 360;
+                    const a0 = angle * Math.PI / 180;
+                    const a1 = (angle + sweep) * Math.PI / 180;
+                    const x0 = cx + r * Math.cos(a0), y0 = cy + r * Math.sin(a0);
+                    const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+                    const ix0 = cx + ir * Math.cos(a0), iy0 = cy + ir * Math.sin(a0);
+                    const ix1 = cx + ir * Math.cos(a1), iy1 = cy + ir * Math.sin(a1);
+                    const large = sweep > 180 ? 1 : 0;
+                    const dim = (this.dynagram.selectedSegment && this.dynagram.selectedSegment !== seg.id) ? '.55' : '1';
+                    paths += `<path d="M${x0},${y0} A${r},${r} 0 ${large} 1 ${x1},${y1} L${ix1},${iy1} A${ir},${ir} 0 ${large} 0 ${ix0},${iy0} Z" fill="${seg.color}" fill-opacity="${dim}" stroke="var(--paper)" stroke-width="2" style="cursor:pointer;" onclick="app.selectSegment('${seg.id}')"></path>`;
+                    angle += sweep;
+                });
+                return `<svg width="180" height="180" viewBox="0 0 180 180">${paths}</svg>`;
+            },
+
+            renderDynagram() {
+                const counts = this.dynagram.segments.map(s => ({
+                    ...s,
+                    count: this.dynagram.users.filter(u => u.segment === s.id).length
+                }));
+                const total = this.dynagram.users.length || 1;
+
+                document.getElementById('wheelContainer').innerHTML = this.buildWheelSVG(counts);
+
+                document.getElementById('segmentList').innerHTML = counts.map(s => `
+                    <div class="segment-item ${this.dynagram.selectedSegment === s.id ? 'active' : ''}" onclick="app.selectSegment('${s.id}')">
+                        <span class="segment-swatch" style="background:${s.color}"></span>
+                        <span><strong>${s.name}</strong> — ${s.values}<br>
+                        <span class="mono" style="font-size: .78rem; color: var(--muted);">${s.count} de ${total} usuarios · ${Math.round(s.count / total * 100)}%</span></span>
+                    </div>
+                `).join('');
+
+                const userSel = document.getElementById('userSegment');
+                if (userSel) userSel.innerHTML = this.dynagram.segments.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+
+                const mapSel = document.getElementById('mapSegment');
+                if (mapSel) mapSel.innerHTML = this.dynagram.segments.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+
+                const panelEl = document.getElementById('dynaPanel');
+                if (this.dynagram.selectedSegment) {
+                    const seg = this.dynagram.segments.find(s => s.id === this.dynagram.selectedSegment);
+                    const p = this.dynagram.panels[this.dynagram.selectedSegment];
+                    const evid = this.dynagram.users.filter(u => u.segment === this.dynagram.selectedSegment);
+                    panelEl.innerHTML = `
+                        <div class="panel-dinamico">
+                            <strong>Panel dinámico — segmento seleccionado: ${seg.name}</strong>
+                            <p><strong>Requisito UX derivado:</strong> ${p.ux}</p>
+                            <p><strong>Funcionalidad clave:</strong> ${p.func}</p>
+                            <p><strong>Tono del sistema:</strong> ${p.tono}</p>
+                            <p><strong>Evidencia (${evid.length}):</strong> ${evid.map(u => u.name + ' — ' + u.evidence).join(' · ') || 'Sin usuarios asignados todavía'}</p>
+                        </div>`;
+                } else {
+                    panelEl.innerHTML = '<p style="color: var(--muted); font-size: .85rem;">Selecciona un segmento de la rueda o de la lista para ver su panel dinámico.</p>';
+                }
+
+                const listEl = document.getElementById('dynaUsersList');
+                if (listEl) {
+                    listEl.innerHTML = this.dynagram.users.length ? this.dynagram.users.map((u, i) => {
+                        const seg = this.dynagram.segments.find(s => s.id === u.segment);
+                        return `
+                        <div class="ficha">
+                            <div class="rol">${seg ? seg.name : u.segment}</div>
+                            <div class="nombre">${u.name}</div>
+                            <p style="font-size:.85rem; color: var(--ink-soft);">${u.evidence}</p>
+                            <div class="entry-actions">
+                                <button class="btn-secondary" onclick="app.editDynaUser(${i})">Editar</button>
+                                <button class="btn-danger" onclick="app.deleteDynaUser(${i})">Eliminar</button>
+                            </div>
+                        </div>`;
+                    }).join('') : '<p style="color: var(--muted); font-size:.85rem;">Sin usuarios registrados todavía.</p>';
+                }
+            },
+
+            selectSegment(id) {
+                this.dynagram.selectedSegment = id;
+                this.renderDynagram();
+                this.saveData();
+            },
+
+            addDynagramUser() {
+                const name = document.getElementById('userName').value.trim();
+                const segment = document.getElementById('userSegment').value;
+                const evidence = document.getElementById('userEvidence').value.trim();
+                if (!name || !evidence) {
+                    this.showAlert('Completa nombre y evidencia', 'error');
+                    return;
+                }
+                if (this.editingDynaUserIndex !== null && this.editingDynaUserIndex !== undefined) {
+                    this.dynagram.users[this.editingDynaUserIndex] = { name, segment, evidence };
+                    this.editingDynaUserIndex = null;
+                    document.getElementById('dynaSubmitBtn').textContent = 'Agregar y recalcular';
+                    this.showAlert('Usuario actualizado', 'success');
+                } else {
+                    this.dynagram.users.push({ name, segment, evidence });
+                    this.showAlert('Usuario agregado, la rueda y las prioridades se recalcularon', 'success');
+                }
+                document.getElementById('userName').value = '';
+                document.getElementById('userEvidence').value = '';
+                this.renderDynagram();
+                this.recalculatePriorities();
+                this.saveData();
+            },
+
+            editDynaUser(i) {
+                const u = this.dynagram.users[i];
+                document.getElementById('userName').value = u.name;
+                document.getElementById('userSegment').value = u.segment;
+                document.getElementById('userEvidence').value = u.evidence;
+                this.editingDynaUserIndex = i;
+                document.getElementById('dynaSubmitBtn').textContent = 'Guardar cambios';
+            },
+
+            cancelDynaUserEdit() {
+                this.editingDynaUserIndex = null;
+                document.getElementById('userName').value = '';
+                document.getElementById('userEvidence').value = '';
+                document.getElementById('dynaSubmitBtn').textContent = 'Agregar y recalcular';
+            },
+
+            deleteDynaUser(i) {
+                if (!confirm('¿Eliminar este usuario del dynagram?')) return;
+                this.dynagram.users.splice(i, 1);
+                this.renderDynagram();
+                this.recalculatePriorities();
+                this.saveData();
+            },
+
+            exportDynagramCSV() {
+                const headers = ['Nombre', 'Segmento', 'Evidencia'];
+                const rows = this.dynagram.users.map(u => {
+                    const seg = this.dynagram.segments.find(s => s.id === u.segment);
+                    return [u.name, seg ? seg.name : u.segment, u.evidence];
+                });
+                this.downloadCSV(headers, rows, `ubika_roper_usuarios_${this.getDate()}.csv`);
+            },
+
+            // ---- Interfaz 6: Mapeo de Requerimientos ----
+
+            getDominantSegment() {
+                const total = this.dynagram.users.length || 1;
+                let best = { id: null, pct: 0 };
+                this.dynagram.segments.forEach(s => {
+                    const count = this.dynagram.users.filter(u => u.segment === s.id).length;
+                    const pct = Math.round(count / total * 100);
+                    if (pct > best.pct) best = { id: s.id, pct };
+                });
+                return best;
+            },
+
+            renderMapping() {
+                document.getElementById('mappingTableBody').innerHTML = this.mapping.rows.map(r => `
+                    <tr>
+                        <td>${r.insight}</td>
+                        <td>${r.reqFunc}</td>
+                        <td>${r.reqUX}</td>
+                        <td><span class="badge badge-${r.priority}">${r.priority}</span></td>
+                        <td style="font-size: .82rem;">${r.estado}</td>
+                        <td>
+                            <button class="btn-success" onclick="app.editMappingRow(${r.id})">Editar</button>
+                            <button class="btn-success" onclick="app.deleteMappingRow(${r.id})">Eliminar</button>
+                        </td>
+                    </tr>
+                `).join('');
+
+                document.getElementById('traceView').innerHTML = this.mapping.rows.map(r => `
+                    <div class="trace-item">${r.insight} → ${r.reqFunc} → ${r.decision}</div>
+                `).join('');
+
+                const dominant = this.getDominantSegment();
+                const segObj = this.dynagram.segments.find(s => s.id === dominant.id);
+                document.getElementById('dominantSegment').textContent = segObj ? `${segObj.name} (${dominant.pct}%)` : 'Sin datos suficientes';
+            },
+
+            recalculatePriorities(manual) {
+                const dominant = this.getDominantSegment();
+                let changes = 0;
+                this.mapping.rows.forEach(r => {
+                    const wasCritica = r.priority === 'critica';
+                    if (r.segment === dominant.id && dominant.pct >= 50) {
+                        if (r.priority !== 'critica') changes++;
+                        r.priority = 'critica';
+                        if (!r.estado.includes('Ley embebida')) {
+                            r.estado = r.estado + ' · Ley embebida: prioridad elevada porque su segmento llegó a ' + dominant.pct + '%';
+                        }
+                    } else if (wasCritica) {
+                        r.priority = r.basePriority;
+                        r.estado = r.estado.split(' · Ley embebida')[0];
+                        changes++;
+                    }
+                });
+                if (changes > 0 || manual) {
+                    const segObj = this.dynagram.segments.find(s => s.id === dominant.id);
+                    this.mapping.log.unshift(`Recálculo: segmento dominante ${segObj ? segObj.name : '—'} (${dominant.pct}%), ${changes} prioridad(es) actualizadas`);
+                    this.mapping.log = this.mapping.log.slice(0, 4);
+                }
+                const logEl = document.getElementById('recalcLog');
+                if (logEl) logEl.innerHTML = this.mapping.log.map(l => `<div>${l}</div>`).join('') || '<div style="color: var(--muted);">Sin recálculos todavía</div>';
+                this.renderMapping();
+                this.saveData();
+            },
+
+            addMappingRow() {
+                const insight = document.getElementById('mapInsight').value.trim();
+                const segment = document.getElementById('mapSegment').value;
+                const priority = document.getElementById('mapPriority').value;
+                const reqFunc = document.getElementById('mapReqFunc').value.trim();
+                const reqUX = document.getElementById('mapReqUX').value.trim();
+                const decision = document.getElementById('mapDecision').value.trim();
+                if (!insight || !reqFunc) {
+                    this.showAlert('Completa al menos el insight y el requisito funcional', 'error');
+                    return;
+                }
+                if (this.editingMappingId) {
+                    const row = this.mapping.rows.find(r => r.id === this.editingMappingId);
+                    Object.assign(row, { insight, segment, reqFunc, reqUX: reqUX || '—', basePriority: priority, priority, decision: decision || '—' });
+                    this.editingMappingId = null;
+                    document.getElementById('mapSubmitBtn').textContent = 'Agregar vínculo';
+                    this.showAlert('Vínculo actualizado', 'success');
+                } else {
+                    this.mapping.rows.push({
+                        id: Date.now(), insight, segment, reqFunc, reqUX: reqUX || '—',
+                        basePriority: priority, priority, estado: 'Por validar', decision: decision || '—'
+                    });
+                    this.showAlert('Vínculo agregado a la tabla', 'success');
+                }
+                ['mapInsight', 'mapReqFunc', 'mapReqUX', 'mapDecision'].forEach(id => document.getElementById(id).value = '');
+                this.recalculatePriorities();
+            },
+
+            editMappingRow(id) {
+                const row = this.mapping.rows.find(r => r.id === id);
+                if (!row) return;
+                document.getElementById('mapInsight').value = row.insight;
+                document.getElementById('mapSegment').value = row.segment;
+                document.getElementById('mapPriority').value = row.basePriority;
+                document.getElementById('mapReqFunc').value = row.reqFunc;
+                document.getElementById('mapReqUX').value = row.reqUX === '—' ? '' : row.reqUX;
+                document.getElementById('mapDecision').value = row.decision === '—' ? '' : row.decision;
+                this.editingMappingId = id;
+                document.getElementById('mapSubmitBtn').textContent = 'Guardar cambios';
+                document.getElementById('mapInsight').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            },
+
+            cancelMappingEdit() {
+                this.editingMappingId = null;
+                ['mapInsight', 'mapReqFunc', 'mapReqUX', 'mapDecision'].forEach(id => document.getElementById(id).value = '');
+                document.getElementById('mapSubmitBtn').textContent = 'Agregar vínculo';
+            },
+
+            deleteMappingRow(id) {
+                if (!confirm('¿Eliminar este vínculo?')) return;
+                this.mapping.rows = this.mapping.rows.filter(r => r.id !== id);
+                this.recalculatePriorities();
+                this.showAlert('Vínculo eliminado', 'success');
+            },
+
+            exportMappingCSV() {
+                const headers = ['Insight/segmento', 'Requisito funcional', 'Requisito UX', 'Prioridad', 'Estado', 'Decisión de arquitectura'];
+                const rows = this.mapping.rows.map(r => [r.insight, r.reqFunc, r.reqUX, r.priority, r.estado, r.decision]);
+                this.downloadCSV(headers, rows, `ubika_mapeo_${this.getDate()}.csv`);
+            },
+
+            saveData() {
+                localStorage.setItem('ubika_records', JSON.stringify(this.records));
+                localStorage.setItem('ubika_experts', JSON.stringify(this.experts));
+                localStorage.setItem('ubika_extreme', JSON.stringify(this.extremeUsers));
+                localStorage.setItem('ubika_observations', JSON.stringify(this.observations));
+                localStorage.setItem('ubika_empathy', JSON.stringify(this.empathy));
+                localStorage.setItem('ubika_dynagram', JSON.stringify({ users: this.dynagram.users, selectedSegment: this.dynagram.selectedSegment }));
+                localStorage.setItem('ubika_mapping', JSON.stringify({ rows: this.mapping.rows, log: this.mapping.log }));
+            },
+
+            loadData() {
+                const data = localStorage.getItem('ubika_records');
+                this.records = data ? JSON.parse(data) : [];
+
+                const exp = localStorage.getItem('ubika_experts');
+                if (exp) this.experts = JSON.parse(exp);
+
+                const ext = localStorage.getItem('ubika_extreme');
+                if (ext) this.extremeUsers = JSON.parse(ext);
+
+                const obs = localStorage.getItem('ubika_observations');
+                if (obs) this.observations = JSON.parse(obs);
+
+                const emp = localStorage.getItem('ubika_empathy');
+                if (emp) this.empathy = JSON.parse(emp);
+
+                const dyn = localStorage.getItem('ubika_dynagram');
+                if (dyn) {
+                    const parsed = JSON.parse(dyn);
+                    this.dynagram.users = parsed.users;
+                    this.dynagram.selectedSegment = parsed.selectedSegment;
+                }
+
+                const map = localStorage.getItem('ubika_mapping');
+                if (map) {
+                    const parsed = JSON.parse(map);
+                    this.mapping.rows = parsed.rows;
+                    this.mapping.log = parsed.log || [];
+                }
+            },
+
+            getDate() {
+                return new Date().toISOString().split('T')[0];
+            },
+
+            showAlert(msg, type) {
+                const container = document.getElementById('alertContainer');
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type} show`;
+                alert.textContent = msg;
+                container.appendChild(alert);
+                setTimeout(() => {
+                    alert.classList.remove('show');
+                    setTimeout(() => alert.remove(), 300);
+                }, 3500);
+            }
+        };
+
+        function closeContactModal() {
+            document.getElementById('contactModal').classList.remove('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => app.init());
+    </script>
+</body>
+
+</html>
